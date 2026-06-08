@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Haru Market</title>
+    <link rel="preconnect" href="https://images.unsplash.com" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="Haru Market 首頁">
+        <span class="brand-mark">H</span>
+        <span>Haru Market</span>
+      </a>
+      <nav class="nav" aria-label="主要導覽">
+        <a href="#products">商品</a>
+        <a href="#benefits">服務</a>
+        <a href="#checkout">結帳</a>
+      </nav>
+      <button class="cart-toggle" type="button" aria-expanded="false" aria-controls="cartPanel">
+        <span>購物車</span>
+        <strong id="cartCount">0</strong>
+      </button>
+    </header>
+
+    <main>
+      <section class="hero" aria-labelledby="heroTitle">
+        <div class="hero-copy">
+          <p class="eyebrow">新季生活選物</p>
+          <h1 id="heroTitle">質感日用品，今天就能帶回家。</h1>
+          <p>
+            精選居家、穿搭與行動配件，支援快速篩選、加入購物車與即時計算訂單。
+          </p>
+          <div class="hero-actions">
+            <a class="primary-link" href="#products">開始選購</a>
+            <a class="secondary-link" href="#benefits">查看服務</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="toolbar" aria-label="商品篩選">
+        <label class="search">
+          <span>搜尋</span>
+          <input id="searchInput" type="search" placeholder="輸入商品名稱或類別" />
+        </label>
+        <div class="chips" role="list" aria-label="商品分類">
+          <button class="chip active" type="button" data-category="全部">全部</button>
+          <button class="chip" type="button" data-category="居家">居家</button>
+          <button class="chip" type="button" data-category="穿搭">穿搭</button>
+          <button class="chip" type="button" data-category="科技">科技</button>
+        </div>
+      </section>
+
+      <section class="products-section" id="products" aria-labelledby="productsTitle">
+        <div class="section-heading">
+          <p class="eyebrow">Products</p>
+          <h2 id="productsTitle">熱門商品</h2>
+        </div>
+        <div class="product-grid" id="productGrid"></div>
+      </section>
+
+      <section class="benefits" id="benefits" aria-label="服務特色">
+        <article>
+          <strong>滿 NT$1,200 免運</strong>
+          <span>黑貓與超商取貨皆可。</span>
+        </article>
+        <article>
+          <strong>七天鑑賞期</strong>
+          <span>保留完整包裝即可申請退換。</span>
+        </article>
+        <article>
+          <strong>安全付款</strong>
+          <span>信用卡、轉帳與行動支付。</span>
+        </article>
+      </section>
+
+      <section class="checkout" id="checkout" aria-labelledby="checkoutTitle">
+        <div class="section-heading">
+          <p class="eyebrow">Checkout</p>
+          <h2 id="checkoutTitle">結帳資料</h2>
+        </div>
+        <form id="checkoutForm" class="checkout-form">
+          <label>
+            姓名
+            <input name="name" required placeholder="王小明" />
+          </label>
+          <label>
+            電子信箱
+            <input name="email" type="email" required placeholder="hello@example.com" />
+          </label>
+          <label>
+            配送地址
+            <input name="address" required placeholder="台北市信義區..." />
+          </label>
+          <button class="submit-order" type="submit">送出訂單</button>
+          <p id="orderMessage" class="order-message" role="status"></p>
+        </form>
+      </section>
+    </main>
+
+    <aside class="cart-panel" id="cartPanel" aria-label="購物車">
+      <div class="cart-header">
+        <h2>購物車</h2>
+        <button class="icon-button" type="button" id="closeCart" aria-label="關閉購物車">×</button>
+      </div>
+      <div id="cartItems" class="cart-items"></div>
+      <div class="cart-summary">
+        <div><span>小計</span><strong id="subtotal">NT$0</strong></div>
+        <div><span>運費</span><strong id="shipping">NT$80</strong></div>
+        <div class="total"><span>總計</span><strong id="total">NT$0</strong></div>
+      </div>
+      <a class="checkout-link" href="#checkout">前往結帳</a>
+    </aside>
+    <div class="scrim" id="scrim"></div>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
