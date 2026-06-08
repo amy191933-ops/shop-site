@@ -3,10 +3,9 @@ const products = [
     id: "lamp",
     name: "柔光陶瓷桌燈",
     category: "居家",
-    price: 1680,
+    price: 20,
     tag: "暖白光",
-    image:
-      "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?auto=format&fit=crop&w=900&q=80",
+    image: ["./product-feature-1.png", "./product-feature-2.png", "./product-feature-3.png"],
   },
   {
     id: "chair",
@@ -95,6 +94,14 @@ const totalEl = document.querySelector("#total");
 const scrim = document.querySelector("#scrim");
 const orderMessage = document.querySelector("#orderMessage");
 
+function getProductImage(product, index = 0) {
+  if (Array.isArray(product.image)) {
+    return product.image[index % product.image.length];
+  }
+
+  return product.image;
+}
+
 function renderProducts() {
   const query = state.query.trim().toLowerCase();
   const filtered = products.filter((product) => {
@@ -107,7 +114,9 @@ function renderProducts() {
     .map(
       (product) => `
         <article class="product-card">
-          <img src="${product.image}" alt="${product.name}" loading="lazy">
+          <button class="product-image-button" type="button" data-gallery="${product.id}" data-index="0" aria-label="切換${product.name}照片">
+            <img src="${getProductImage(product)}" alt="${product.name}" loading="lazy">
+          </button>
           <div class="product-body">
             <div class="product-meta">
               <span>${product.category}</span>
@@ -155,7 +164,7 @@ function renderCart() {
     .map(
       (item) => `
         <article class="cart-item">
-          <img src="${item.image}" alt="${item.name}">
+          <img src="${getProductImage(item)}" alt="${item.name}">
           <div>
             <h3>${item.name}</h3>
             <span>${currency.format(item.price)}</span>
@@ -198,6 +207,18 @@ document.querySelectorAll(".chip").forEach((chip) => {
 });
 
 productGrid.addEventListener("click", (event) => {
+  const galleryButton = event.target.closest("[data-gallery]");
+  if (galleryButton) {
+    const product = products.find((item) => item.id === galleryButton.dataset.gallery);
+    if (product && Array.isArray(product.image) && product.image.length > 1) {
+      const nextIndex = (Number(galleryButton.dataset.index || 0) + 1) % product.image.length;
+      const image = galleryButton.querySelector("img");
+      galleryButton.dataset.index = String(nextIndex);
+      image.src = getProductImage(product, nextIndex);
+    }
+    return;
+  }
+
   const button = event.target.closest("[data-add]");
   if (!button) return;
 
